@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.estacio.nfinancas"
+    namespace = "com.estacio.nfinance"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.estacio.nfinancas"
+        applicationId = "com.estacio.nfinance"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

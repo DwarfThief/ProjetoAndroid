@@ -1,4 +1,4 @@
-package com.estacio.nfinancas
+package com.estacio.nfinance
 
 import org.junit.Test
 
