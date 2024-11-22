@@ -20,7 +20,7 @@
             android:id="@+id/containerComponents"
             style="@style/ContainerComponents"
             android:layout_width="350dp"
-            android:layout_height="400dp"
+            android:layout_height="480dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -75,13 +75,35 @@
             app:layout_constraintTop_toBottomOf="@+id/description"
             />
 
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_login"
-            style="@style/Button"
+        <RadioGroup
+            android:id="@+id/type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/date_input"
+            android:layout_marginHorizontal="40dp"
+            >
+            <RadioButton android:id="@+id/radio_recebidos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/WhiteRadioButton"
+                android:text="Recebido"/>
+            <RadioButton android:id="@+id/radio_gasto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/WhiteRadioButton"
+                android:text="Gasto"/>
+        </RadioGroup>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_enviar"
+            style="@style/Button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/type"
             android:text="@string/send"
             />
 
