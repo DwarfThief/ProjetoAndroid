@@ -4,10 +4,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.estacio.nfinance.models.api.LoginRequest
+import com.estacio.nfinance.models.api.LoginResponse
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,9 +43,24 @@ class LoginActivity : AppCompatActivity() {
 
         // Alterar o destino para MainPageActivity
         btnLogin.setOnClickListener {
-            // Iniciar a MainPageActivity
-            val intent = Intent(this, DashboardActivity::class.java)
-            startActivity(intent)
+            CoroutineScope(Dispatchers.IO).launch {
+                val loginRequest = LoginRequest(email = findViewById<TextView>(R.id.edit_email).toString(), password = findViewById<TextView>(R.id.edit_senha).toString())
+
+                try {
+                    val response = RetrofitInstance.api.postLogin(loginRequest).execute()
+                    if (response.isSuccessful) {
+                        // Iniciar a atividade de cadastro
+                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                        startActivity(intent)
+                    } else {
+                        Toast.makeText(this@LoginActivity, "E-mail ou senha errado",
+                            Toast.LENGTH_LONG).show();
+                    }
+                } catch (e: Exception) {
+                    Toast.makeText(this@LoginActivity, "E-mail ou senha errado",
+                        Toast.LENGTH_LONG).show();
+                }
+            }
         }
     }
 }
