@@ -8,7 +8,146 @@
     android:background="@drawable/dashboard_background"
     tools:context=".DashboardActivity">
 
-    
+    <View
+        android:id="@+id/total_balance_background"
+        style="@style/FinanceInfo"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/total_balance"
+        android:text="Total"
+        android:textColor="@color/white"
+        android:drawablePadding="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:drawableStartCompat="@drawable/cifrao"
+        app:layout_constraintStart_toStartOf="@+id/total_balance_background"
+        app:layout_constraintEnd_toEndOf="@+id/total_balance_background"
+        app:layout_constraintTop_toTopOf="@+id/total_balance_background"
+        app:layout_constraintBottom_toBottomOf="@+id/total_balance_background" />
+
+    <View
+        android:id="@+id/total_spent_background"
+        style="@style/FinanceInfo"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/total_balance_background" />
+
+    <TextView
+        android:id="@+id/total_spent"
+        android:text="Spent"
+        android:textColor="@color/white"
+        android:drawablePadding="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:drawableStartCompat="@drawable/arrow_up"
+        app:layout_constraintStart_toStartOf="@+id/total_spent_background"
+        app:layout_constraintEnd_toEndOf="@+id/total_spent_background"
+        app:layout_constraintTop_toTopOf="@+id/total_spent_background"
+        app:layout_constraintBottom_toBottomOf="@+id/total_spent_background" />
+
+    <View
+        android:id="@+id/total_income_background"
+        style="@style/FinanceInfo"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/total_spent_background" />
+
+    <TextView
+        android:id="@+id/total_income"
+        android:text="Income"
+        android:textColor="@color/white"
+        android:drawablePadding="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:drawableStartCompat="@drawable/arrow_down"
+        app:layout_constraintStart_toStartOf="@+id/total_income_background"
+        app:layout_constraintEnd_toEndOf="@+id/total_income_background"
+        app:layout_constraintTop_toTopOf="@+id/total_income_background"
+        app:layout_constraintBottom_toBottomOf="@+id/total_income_background" />
+
+    <View
+        android:id="@+id/spent"
+        style="@style/FinanceInfo"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/total_income" />
+
+    <TextView
+        android:id="@+id/spent_title"
+        android:text="Nome do Gasto"
+        android:textColor="@color/white"
+        android:drawablePadding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:drawableStartCompat="@drawable/arrow_up"
+        app:layout_constraintStart_toStartOf="@+id/spent"
+        app:layout_constraintTop_toTopOf="@+id/spent"
+        android:layout_margin="16dp"
+        />
+
+    <TextView
+        android:id="@+id/spent_value"
+        android:text="R$ 150,00"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/spent_title"
+        app:layout_constraintTop_toBottomOf="@+id/spent_title"
+        />
+
+    <TextView
+        android:id="@+id/spent_description"
+        android:text="Descrição ....."
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/spent_value"
+        app:layout_constraintTop_toBottomOf="@+id/spent_value"
+        />
+
+    <TextView
+        android:id="@+id/spent_date"
+        android:text="22/11/2024 11:15:00"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/spent_description"
+        app:layout_constraintTop_toBottomOf="@+id/spent_description"
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/create"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:backgroundTint="@color/green"
+        app:srcCompat="@android:drawable/ic_input_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

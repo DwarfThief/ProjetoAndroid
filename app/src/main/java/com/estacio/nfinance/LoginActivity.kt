@@ -2,6 +2,7 @@ package com.estacio.nfinance
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -28,6 +29,16 @@ class LoginActivity : AppCompatActivity() {
         textCadastro.setOnClickListener {
             // Iniciar a atividade de cadastro
             val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Obter o botão pelo ID
+        val btnLogin = findViewById<Button>(R.id.btn_login)
+
+        // Alterar o destino para MainPageActivity
+        btnLogin.setOnClickListener {
+            // Iniciar a MainPageActivity
+            val intent = Intent(this, DashboardActivity::class.java)
             startActivity(intent)
         }
     }

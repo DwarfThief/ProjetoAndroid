@@ -48,4 +48,12 @@
     <string name="register"><u>Crie uma conta</u></string>
     <string name="finishRegister">Finalizar Cadastro</string>
     <string name="confirmPassword">Confirmar senha\n</string>
+    <string name="name">Nome</string>
+    <string name="value">Valor</string>
+    <string name="send">Enviar</string>
+    <string name="description">Descrição</string>
+    <string name="title_activity_create">CreateActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>
