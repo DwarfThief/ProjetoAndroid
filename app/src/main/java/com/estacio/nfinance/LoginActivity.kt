@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.estacio.nfinance.models.api.LoginRequest
-import com.estacio.nfinance.models.api.LoginResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -54,11 +53,11 @@ class LoginActivity : AppCompatActivity() {
                         startActivity(intent)
                     } else {
                         Toast.makeText(this@LoginActivity, "E-mail ou senha errado",
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_LONG).show()
                     }
                 } catch (e: Exception) {
                     Toast.makeText(this@LoginActivity, "E-mail ou senha errado",
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_LONG).show()
                 }
             }
         }
