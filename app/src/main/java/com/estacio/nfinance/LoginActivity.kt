@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.estacio.nfinance.models.api.LoginRequest
 import com.estacio.nfinance.models.api.LoginResponse
+import com.estacio.nfinance.models.api.RegisterResponse
 import retrofit2.Call
 import retrofit2.Response
 
@@ -62,7 +63,7 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                    Toast.makeText(this@LoginActivity, "E-mail ou senha errado",
+                    Toast.makeText(this@LoginActivity, "Falha na requisição: ${t.message}",
                         Toast.LENGTH_LONG).show()
                 }
             })

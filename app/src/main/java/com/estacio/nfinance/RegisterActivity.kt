@@ -46,45 +46,29 @@ class RegisterActivity : AppCompatActivity() {
             )
             val retrofitClient = RetrofitService.getRetrofitInstance("http://localhost:3001/")
 
-//            val endpoint = retrofitClient.create(ApiService::class.java)
-//            endpoint.postRegister(registerRequest).enqueue(object : retrofit2.Callback<RegisterResponse> {
-//                override fun onResponse(
-//                    call: Call<LoginResponse>,
-//                    response: Response<LoginResponse>
-//                ) {
-//                    if(response.isSuccessful) {
-//                        val intent = Intent(this@RegisterActivity, DashboardActivity::class.java)
-//                        startActivity(intent)
-//                    }else {
-//                        Toast.makeText(this@RegisterActivity, "Dados inválidos ou e-mail já cadastrado",
-//                            Toast.LENGTH_LONG).show()
-//                    }
-//                }
-//
-//                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-//                    Toast.makeText(this@RegisterActivity, "Dados inválidos ou e-mail já cadastrado",
-//                        Toast.LENGTH_LONG).show()
-//                }
-//            })
+            val endpoint = retrofitClient.create(ApiService::class.java)
+            endpoint.postRegister(registerRequest).enqueue(object : retrofit2.Callback<RegisterResponse> {
+                override fun onResponse(
+                    call: Call<RegisterResponse>,
+                    response: Response<RegisterResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val registerResponse = response.body()
+                        Toast.makeText(this@RegisterActivity, "Registro bem-sucedido: ${registerResponse?.message}",
+                            Toast.LENGTH_LONG).show()
 
-            CoroutineScope(Dispatchers.IO).launch {
+                        val intent = Intent(this@RegisterActivity, DashboardActivity::class.java)
+                        startActivity(intent)
+                    } else {
+                        println("${response.errorBody()?.string()}")
+                    }
+                }
 
-
-                try {
-                    //val response = RetrofitService.api.postRegister(registerRequest).execute()
-                    //if (response.isSuccessful) {
-                        // Iniciar a atividade de cadastro
-                    //    val intent = Intent(this@RegisterActivity, MainActivity::class.java)
-                    //    startActivity(intent)
-                    //} else {
-                    //    Toast.makeText(this@RegisterActivity, "Dados inválidos ou e-mail já cadastrado",
-                    //        Toast.LENGTH_LONG).show()
-                    //}
-                } catch (e: Exception) {
-                    Toast.makeText(this@RegisterActivity, "Dados inválidos ou e-mail já cadastrado",
+                override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+                    Toast.makeText(this@RegisterActivity, "Falha na requisição: ${t.message}",
                         Toast.LENGTH_LONG).show()
                 }
-            }
+            })
         }
     }
 }
