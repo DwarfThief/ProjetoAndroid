@@ -56,9 +56,6 @@ class RegisterActivity : AppCompatActivity() {
                         val registerResponse = response.body()
                         Toast.makeText(this@RegisterActivity, "Registro bem-sucedido: ${registerResponse?.message}",
                             Toast.LENGTH_LONG).show()
-
-                        val intent = Intent(this@RegisterActivity, DashboardActivity::class.java)
-                        startActivity(intent)
                     } else {
                         println("${response.errorBody()?.string()}")
                     }
