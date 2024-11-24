@@ -1,5 +1,6 @@
 package com.estacio.nfinance
 
+import ApiService
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -10,9 +11,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.estacio.nfinance.models.api.LoginRequest
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.estacio.nfinance.models.api.LoginResponse
+import retrofit2.Call
+import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,24 +43,29 @@ class LoginActivity : AppCompatActivity() {
 
         // Alterar o destino para MainPageActivity
         btnLogin.setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch {
-                val loginRequest = LoginRequest(email = findViewById<TextView>(R.id.edit_email).toString(), password = findViewById<TextView>(R.id.edit_senha).toString())
+            val loginRequest = LoginRequest(email = findViewById<TextView>(R.id.edit_email).toString(), password = findViewById<TextView>(R.id.edit_senha).toString())
+            val retrofitClient = RetrofitService.getRetrofitInstance("http://localhost:3001/")
 
-                try {
-                    val response = RetrofitInstance.api.postLogin(loginRequest).execute()
-                    if (response.isSuccessful) {
-                        // Iniciar a atividade de cadastro
-                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+            val endpoint = retrofitClient.create(ApiService::class.java)
+            endpoint.postLogin(loginRequest).enqueue(object : retrofit2.Callback<LoginResponse> {
+                override fun onResponse(
+                    call: Call<LoginResponse>,
+                    response: Response<LoginResponse>
+                ) {
+                    if(response.isSuccessful) {
+                        val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
                         startActivity(intent)
-                    } else {
+                    }else {
                         Toast.makeText(this@LoginActivity, "E-mail ou senha errado",
                             Toast.LENGTH_LONG).show()
                     }
-                } catch (e: Exception) {
+                }
+
+                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                     Toast.makeText(this@LoginActivity, "E-mail ou senha errado",
                         Toast.LENGTH_LONG).show()
                 }
-            }
+            })
         }
     }
 }
