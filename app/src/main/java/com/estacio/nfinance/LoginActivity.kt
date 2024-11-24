@@ -46,6 +46,8 @@ class LoginActivity : AppCompatActivity() {
         btnLogin.setOnClickListener {
             val loginRequest = LoginRequest(email = findViewById<TextView>(R.id.edit_email).toString(), password = findViewById<TextView>(R.id.edit_senha).toString())
             val retrofitClient = RetrofitService.getRetrofitInstance("http://localhost:3001/")
+            val loginRequest = LoginRequest(email = findViewById<TextView>(R.id.edit_email).text.toString(), password = findViewById<TextView>(R.id.edit_senha).text.toString())
+            val retrofitClient = RetrofitService.getRetrofitInstance("http://3.145.171.244:3002/")
 
             val endpoint = retrofitClient.create(ApiService::class.java)
             endpoint.postLogin(loginRequest).enqueue(object : retrofit2.Callback<LoginResponse> {
@@ -60,6 +62,7 @@ class LoginActivity : AppCompatActivity() {
                         Toast.makeText(this@LoginActivity, "E-mail ou senha errado",
                             Toast.LENGTH_LONG).show()
                     }
+                    println(response)
                 }
 
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
