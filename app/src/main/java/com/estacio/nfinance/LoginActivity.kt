@@ -44,9 +44,10 @@ class LoginActivity : AppCompatActivity() {
 
         // Alterar o destino para MainPageActivity
         btnLogin.setOnClickListener {
-            val loginRequest = LoginRequest(email = findViewById<TextView>(R.id.edit_email).toString(), password = findViewById<TextView>(R.id.edit_senha).toString())
-            val retrofitClient = RetrofitService.getRetrofitInstance("http://localhost:3001/")
-            val loginRequest = LoginRequest(email = findViewById<TextView>(R.id.edit_email).text.toString(), password = findViewById<TextView>(R.id.edit_senha).text.toString())
+            val emailTextInput = findViewById<TextView>(R.id.edit_email).text.toString()
+            val passwordTextInput = findViewById<TextView>(R.id.edit_senha).text.toString()
+
+            val loginRequest = LoginRequest(email = emailTextInput, password = passwordTextInput)
             val retrofitClient = RetrofitService.getRetrofitInstance("http://3.145.171.244:3002/")
 
             val endpoint = retrofitClient.create(ApiService::class.java)
