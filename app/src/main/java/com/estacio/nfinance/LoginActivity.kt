@@ -44,33 +44,45 @@ class LoginActivity : AppCompatActivity() {
 
         // Alterar o destino para MainPageActivity
         btnLogin.setOnClickListener {
-            val emailTextInput = findViewById<TextView>(R.id.edit_email).text.toString()
-            val passwordTextInput = findViewById<TextView>(R.id.edit_senha).text.toString()
 
-            val loginRequest = LoginRequest(email = emailTextInput, password = passwordTextInput)
-            val retrofitClient = RetrofitService.getRetrofitInstance("http://3.145.171.244:3002/")
+            // Referência ao botão de login
+            val btnLogin = findViewById<Button>(R.id.btn_login)
 
-            val endpoint = retrofitClient.create(ApiService::class.java)
-            endpoint.postLogin(loginRequest).enqueue(object : retrofit2.Callback<LoginResponse> {
-                override fun onResponse(
-                    call: Call<LoginResponse>,
-                    response: Response<LoginResponse>
-                ) {
-                    if(response.isSuccessful) {
-                        val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
-                        startActivity(intent)
-                    }else {
-                        Toast.makeText(this@LoginActivity, "E-mail ou senha errado",
-                            Toast.LENGTH_LONG).show()
-                    }
-                    println(response)
-                }
+            // Configurar o clique do botão
+            btnLogin.setOnClickListener {
+                // Criar uma intent para abrir a DashboardActivity
+                val intent = Intent(this, DashboardActivity::class.java)
+                startActivity(intent)
+            }
 
-                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                    Toast.makeText(this@LoginActivity, "Falha na requisição: ${t.message}",
-                        Toast.LENGTH_LONG).show()
-                }
-            })
+
+//            val emailTextInput = findViewById<TextView>(R.id.edit_email).text.toString()
+//            val passwordTextInput = findViewById<TextView>(R.id.edit_senha).text.toString()
+//
+//            val loginRequest = LoginRequest(email = emailTextInput, password = passwordTextInput)
+//            val retrofitClient = RetrofitService.getRetrofitInstance("http://3.145.171.244:3002/")
+//
+//            val endpoint = retrofitClient.create(ApiService::class.java)
+//            endpoint.postLogin(loginRequest).enqueue(object : retrofit2.Callback<LoginResponse> {
+//                override fun onResponse(
+//                    call: Call<LoginResponse>,
+//                    response: Response<LoginResponse>
+//                ) {
+//                    if(response.isSuccessful) {
+//                        val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
+//                        startActivity(intent)
+//                    }else {
+//                        Toast.makeText(this@LoginActivity, "E-mail ou senha errado",
+//                            Toast.LENGTH_LONG).show()
+//                    }
+//                    println(response)
+//                }
+//
+//                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+//                    Toast.makeText(this@LoginActivity, "Falha na requisição: ${t.message}",
+//                        Toast.LENGTH_LONG).show()
+//                }
+//            })
         }
     }
 }

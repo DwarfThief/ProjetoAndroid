@@ -1,6 +1,6 @@
 package com.estacio.nfinance.models.api
 
-import com.estacio.nfinance.models.Transaction
+import Transaction
 
 data class ListTransactionResponse(
     val data: List<Transaction>,

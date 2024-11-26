@@ -1,4 +1,4 @@
-import com.estacio.nfinance.models.Transaction
+import Transaction
 import com.estacio.nfinance.models.api.ListTransactionResponse
 import com.estacio.nfinance.models.api.LoginResponse
 import com.estacio.nfinance.models.api.LoginRequest
@@ -33,9 +33,8 @@ interface ApiService {
         @Body transaction: Transaction
     ): Call<Transaction>
 
-    @GET("/index/{id}/{type}")
+    @GET("/last/{id}")
     fun getTransactionsByType(
-        @Path("id") id: String,
-        @Path("type") type: Int
+        @Path("id") id: String
     ): Call<ListTransactionResponse>
 }

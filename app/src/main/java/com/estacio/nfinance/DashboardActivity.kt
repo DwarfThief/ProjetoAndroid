@@ -1,20 +1,52 @@
 package com.estacio.nfinance
 
 import ApiService
+import Transaction
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.estacio.nfinance.models.api.ListTransactionResponse
 import com.estacio.nfinance.models.api.RegisterResponse
 import retrofit2.Call
 import retrofit2.Response
 
 class DashboardActivity : AppCompatActivity() {
+    inner class TransactionAdapter(private val transactions: List<Transaction>) :
+        RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder>() {
+
+        inner class TransactionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+            val name: TextView = itemView.findViewById(R.id.spent_title)
+            val description: TextView = itemView.findViewById(R.id.spent_description)
+            val amount: TextView = itemView.findViewById(R.id.spent_value)
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
+            val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_transaction, parent, false)
+            return TransactionViewHolder(view)
+        }
+
+        override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
+            val transaction = transactions[position]
+            holder.name.text = transaction.name
+            holder.amount.text = "R$ ${transaction.amount}"
+            holder.description.text = transaction.description
+        }
+
+        override fun getItemCount(): Int = transactions.size
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -25,18 +57,10 @@ class DashboardActivity : AppCompatActivity() {
             insets
         }
 
-        // Referencia a View com id "spent"
-        val spentView = findViewById<View>(R.id.spent)
-
-        // Adiciona o OnClickListener
-        spentView.setOnClickListener {
-            // Cria o Intent para ir para a EditActivity
-            val intent = Intent(this, EditActivity::class.java)
-            startActivity(intent) // Inicia a EditActivity
-        }
-
         // Referencie a View com o ID "create"
         val createButton = findViewById<View>(R.id.create)
+
+
 
         // Adicione o OnClickListener
         createButton.setOnClickListener {
@@ -47,21 +71,28 @@ class DashboardActivity : AppCompatActivity() {
 
         // TODO: Criar função para pegar o Id do user
         val userId = "66909ad31211260fe9c2a6bd"
-        val typeTransaction = 0
 
-        val retrofitClient = RetrofitService.getRetrofitInstance("http://localhost:3001/")
+        val retrofitClient = RetrofitService.getRetrofitInstance("http://3.145.171.244:3002/")
         val endpoint = retrofitClient.create(ApiService::class.java)
 
-        endpoint.getTransactionsByType(userId,typeTransaction).enqueue(object : retrofit2.Callback<ListTransactionResponse> {
+        endpoint.getTransactionsByType(userId).enqueue(object : retrofit2.Callback<ListTransactionResponse> {
             override fun onResponse(
                 call: Call<ListTransactionResponse>,
                 response: Response<ListTransactionResponse>
             ) {
                 if (response.isSuccessful) {
-                    // TODO: Alimentar o recyclerview
+                    val transactions = response.body()?.data ?: emptyList()
+
+                    // Configurar o RecyclerView
+                    val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+                    recyclerView.layoutManager = LinearLayoutManager(this@DashboardActivity)
+                    recyclerView.adapter = TransactionAdapter(transactions)
                 } else {
-                    Toast.makeText(this@DashboardActivity, "Falha na requisição: ${response.body().toString()}",
-                        Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this@DashboardActivity,
+                        "Falha na requisição: ${response.body().toString()}",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
 
