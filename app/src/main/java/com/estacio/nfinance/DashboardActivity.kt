@@ -28,6 +28,7 @@ class DashboardActivity : AppCompatActivity() {
             val name: TextView = itemView.findViewById(R.id.spent_title)
             val description: TextView = itemView.findViewById(R.id.spent_description)
             val amount: TextView = itemView.findViewById(R.id.spent_value)
+            val date: TextView = itemView.findViewById(R.id.spent_date)
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
@@ -41,6 +42,7 @@ class DashboardActivity : AppCompatActivity() {
             holder.name.text = transaction.name
             holder.amount.text = "R$ ${transaction.amount}"
             holder.description.text = transaction.description
+            holder.date.text = transaction.date
         }
 
         override fun getItemCount(): Int = transactions.size
@@ -70,7 +72,7 @@ class DashboardActivity : AppCompatActivity() {
         }
 
         // TODO: Criar função para pegar o Id do user
-        val userId = "66909ad31211260fe9c2a6bd"
+        val userId = "6743211137dbc7da9dc596a4"
 
         val retrofitClient = RetrofitService.getRetrofitInstance("http://3.145.171.244:3002/")
         val endpoint = retrofitClient.create(ApiService::class.java)
